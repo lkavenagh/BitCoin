@@ -15,7 +15,12 @@ print time.ctime() + ": " + lastprice
 time.sleep(5)
 
 while 1:
-    tmp = c.getUSDBTC()
+    try:
+        tmp = c.getUSDBTC()
+    except:
+        time.sleep(300)
+        tmp = c.getUSDBTC()
+        
     if tmp != lastprice:
         print time.ctime() + ": " + tmp
         lastprice = tmp;
@@ -38,7 +43,7 @@ while 1:
     if cutoff1 and lastprice > cutoff*2:
         cutoff2 = True
         
-    time.sleep(5)
+    time.sleep(15)
     
     if cutoff1 and cutoff2:
         print 'Both cutoffs breached, exiting buy stage...'
